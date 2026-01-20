@@ -263,23 +263,24 @@
 │       └── 📄 chat_widget.py                 # Виджет чата
 │   
 ├── 📁 server/                       # Исходный код сервера
-│    ├── 📄 main.py                        # Точка входа сервера (FastAPI)
-│    ├── 📄 websocket_manager.py           # Менеджер WebSocket соединений
-│    ├── 📄 dependencies.py                # Зависимости (JWT аутентификация)
-│    ├── 📁 database/
-│    │   ├── 📄 db.py                      # Инициализация БД
-│    │   ├── 📄 user_model.py              # Модель пользователя
-│    │   ├── 📄 models.py
-│    │   └── 📄 message_model.py           # Модель сообщения
-│    ├── 📄 routers/
-│    │   ├── 📄 auth.py                    # Аутентификация
-│    │   ├── 📄 messages.py                # Работа с сообщениями
-│    │   ├── 📄 users.py                   # Управление пользователями
-│    │   └── 📄 admin.py                   # Административные функции
-│    └── 📄 schemas/
-│        ├── 📄 user.py                    # Pydantic схемы пользователей
-│        └── 📄 message.py                 # Pydantic схемы сообщений
-└──
+│   ├── 📄 main.py                        # Точка входа сервера (FastAPI)
+│   ├── 📄 websocket_manager.py           # Менеджер WebSocket соединений
+│   ├── 📄 dependencies.py                # Зависимости (JWT аутентификация)
+│   ├── 📁 database/
+│   │   ├── 📄 db.py                      # Инициализация БД
+│   │   ├── 📄 user_model.py              # Модель пользователя
+│   │   ├── 📄 models.py
+│   │   └── 📄 message_model.py           # Модель сообщения
+│   ├── 📄 routers/
+│   │   ├── 📄 auth.py                    # Аутентификация
+│   │   ├── 📄 messages.py                # Работа с сообщениями
+│   │   ├── 📄 users.py                   # Управление пользователями
+│   │   └── 📄 admin.py                   # Административные функции
+│   └── 📄 schemas/
+│       ├── 📄 user.py                    # Pydantic схемы пользователей
+│       └── 📄 message.py                 # Pydantic схемы сообщений
+└── 📁 shared/
+    └──📄 models.py
 ```
 
 ---
