@@ -17,19 +17,24 @@
 
 ## 👥 Группа 21ИС-24
 
-| Студент | Репозиторий |
-|---------|-------------|
-| **Шабанов Даниил** | [fertak08/PKOvchinnikova_21IS_4semestr_Shabanov](https://github.com/fertak08/PKOvchinnikova_21IS_4semestr_Shabanov) |
-| **Малиневский Егор** | [Leendeseqy/PKOvchinnikova_21IS_4semestr_Malinevskiy](https://github.com/Leendeseqy/PKOvchinnikova_21IS_4semestr_Malinevskiy) |
-| **Поздняков Дмитрий** | [Mitya1606/PKOvchinnikova_21IS_4semestr_PozdnyakovD](https://github.com/Mitya1606/PKOvchinnikova_21IS_4semestr_PozdnyakovD) |
-| **Ларетина Дарья** | [Al-Daria/PKOvchinnikova_21IS_4semestr_Laretina](https://github.com/Al-Daria/PKOvchinnikova_21IS_4semestr_Laretina) |
-| **Фисенко Анна** | [Fisai/PKOvchinikova_21IS_4semestr_FisenkoAA](https://github.com/Fisai/PKOvchinikova_21IS_4semestr_FisenkoAA) |
-| **Силаков Максим** | [Grozard/PKOvchinnikova_21IS_4semestr_Silakov](https://github.com/Grozard/PKOvchinnikova_21IS_4semestr_Silakov) |
-| **Курносенко Александр** | [Alixandros/PKOvchinnikova_21IS_4semestr_Kyrnosenko.A.C](https://github.com/Alixandros/PKOvchinnikova_21IS_4semestr_Kyrnosenko.A.C) |
-| **Поздняков Владимир** | [Voviy-ux/PKOvchinnikova_21IS_PozdnyakovVR](https://github.com/Voviy-ux/PKOvchinnikova_21IS_PozdnyakovVR) |
-| **Юхин Лавр** | [PananiXX/PKOvchinnikova_21IS_4semestr_Yukhin](https://github.com/PananiXX/PKOvchinnikova_21IS_4semestr_Yukhin) |
-| **Тараканова Андрей** | *[20.01.26](https://github.com/andreitar3/20.01.26)* |
-| **Микштас Артурас** | *[Mrkirk1/PKOvchinnikova_21IS_4semestr_Mikshtas](https://github.com/Mrkirk1/PKOvchinnikova_21IS_4semestr_Mikshtas)* |
+| Номер | Студент | Ник/Репозиторий |
+|---------|---------|-------------|
+| 1 | **Курносенко Александр Сергеевич** | [Alixandros](https://github.com/Alixandros/PKOvchinnikova_21IS_4semestr_Kyrnosenko.A.C) |
+| 2 | **Ларетина Дарья Алексеевна** | [Al-Daria](https://github.com/Al-Daria/PKOvchinnikova_21IS_4semestr_Laretina) |
+| 3 | **Малиневский Егор Сергеевич** | [Leendeseqy](https://github.com/Leendeseqy/PKOvchinnikova_21IS_4semestr_Malinevskiy) |
+| 4 | **Микштас Артурас Мариусо** | [Mrkirk1](https://github.com/Mrkirk1/PKOvchinnikova_21IS_4semestr_Mikshtas) |
+| 5 | **Мирошкин Егор Денисович** | [В Процессе...]() |
+| 6 | **Поздняков Владимир Романович** | [Voviy-ux](https://github.com/Voviy-ux/PKOvchinnikova_21IS_PozdnyakovVR) |
+| 7 | **Поздняков Дмитрий Романович** | [Mitya1606](https://github.com/Mitya1606/PKOvchinnikova_21IS_4semestr_PozdnyakovD) |
+| 8 | **Полсачев Матвей Анатольевич** | [В Процессе...]() |
+| 9 | **Рукас Вероника Олеговна** | [В Процессе...]() |
+| 10 | **Силаков Максим Андреевич** | [Grozard](https://github.com/Grozard/PKOvchinnikova_21IS_4semestr_Silakov) |
+| 11 | **Тараканова Андрей Андреевич** | [20.01.26](https://github.com/andreitar3/20.01.26) |
+| 12 | **Удин Дмитрий Максимович** | [prostoflytre](https://github.com/prostoflytre/modelup) |
+| 13 | **Фисенко Анна Андреевна** | [Fisai](https://github.com/Fisai/PKOvchinikova_21IS_4semestr_FisenkoAA) |
+| 14 | **Шабанов Даниил Алексеевич** | [fertak08](https://github.com/fertak08/PKOvchinnikova_21IS_4semestr_Shabanov) |
+| 15 | **Юхин Лавр Юрьевич** | [PananiXX](https://github.com/PananiXX/PKOvchinnikova_21IS_4semestr_Yukhin) |
+
 
 ---
 
