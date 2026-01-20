@@ -31,19 +31,6 @@
 | **Тараканова Андрей** | *[20.01.26](https://github.com/andreitar3/20.01.26)* |
 | **Микштас Артурас** | *[Mrkirk1/PKOvchinnikova_21IS_4semestr_Mikshtas](https://github.com/Mrkirk1/PKOvchinnikova_21IS_4semestr_Mikshtas)* |
 
-Leendeseqy
-fertak08
-Mitya1606
-Al-Daria
-Fisai
-Grozard
-Alixandros
-Voviy-ux
-PananiXX
-andreitar3
-Mrkirk1
-Teacher001-top
-
 ---
 
 ## 📖 Оглавление документации
