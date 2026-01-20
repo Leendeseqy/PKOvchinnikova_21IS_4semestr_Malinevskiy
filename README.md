@@ -28,7 +28,7 @@
 | **Курносенко Александр** | [Alixandros/19.01.2026](https://github.com/Alixandros/19.01.2026) |
 | **Поздняков Владимир** | [Voviy-ux/all-quests](https://github.com/Voviy-ux/all-quests) |
 | **Юхин Лавр** | [PananiXX/-01](https://github.com/PananiXX/-01) |
-| **Тараканова Андрей** | 🛠 *В процессе* |
+| **Тараканова Андрей** | *[20.01.26](https://github.com/andreitar3/20.01.26)* |
 | **Микштас Артурас** | 🛠 *В процессе* |
 
 Leendeseqy
@@ -40,6 +40,7 @@ Grozard
 Alixandros
 Voviy-ux
 PananiXX
+andreitar3
 
 ---
 
