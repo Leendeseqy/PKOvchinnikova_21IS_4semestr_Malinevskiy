@@ -29,7 +29,7 @@
 | **Поздняков Владимир** | [Voviy-ux/all-quests](https://github.com/Voviy-ux/all-quests) |
 | **Юхин Лавр** | [PananiXX/-01](https://github.com/PananiXX/-01) |
 | **Тараканова Андрей** | *[20.01.26](https://github.com/andreitar3/20.01.26)* |
-| **Микштас Артурас** | 🛠 *В процессе* |
+| **Микштас Артурас** | *[01](https://github.com/bigdickowner/01)* |
 
 Leendeseqy
 fertak08
@@ -41,6 +41,8 @@ Alixandros
 Voviy-ux
 PananiXX
 andreitar3
+bigdickowner
+Teacher001-top
 
 ---
 
