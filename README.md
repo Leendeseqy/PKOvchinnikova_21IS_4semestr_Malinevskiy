@@ -498,30 +498,29 @@ python main.py
 │       ├── 📄 broadcast_client.py
 │       └── 📄 broadcast_server.py
 │
-├── 📁 server/                   # Серверная часть
-│   ├── 📄 main.py               # Точка входа сервера
-│   ├── 📄 server_config.py      # Конфигурация сервера
-│   ├── 📄 server_auth.py        # Аутентификация сервера
-│   ├── 📄 websocket_manager.py  # Менеджер WebSocket
-│   ├── 📄 dependencies.py       # Зависимости
-│   │
-│   ├── 📁 database/             # Работа с БД
-│   │   ├── 📄 db.py             # Инициализация БД
-│   │   ├── 📄 user_model.py     # Модель пользователя
-│   │   ├── 📄 message_model.py  # Модель сообщения
-│   │   └── 📄 models.py         # ⭐ ВОТ ОН! Основные модели
-│   │
-│   ├── 📁 routers/              # Маршруты API
-│   │   ├── 📄 auth.py           # Аутентификация
-│   │   ├── 📄 messages.py       # Работа с сообщениями
-│   │   ├── 📄 users.py          # Управление пользователями
-│   │   └── 📄 admin.py          # Административные функции
-│   │
-│   └── 📁 schemas/              # Pydantic схемы
-│       ├── 📄 user.py           # Схемы пользователей
-│       └── 📄 message.py        # Схемы сообщений
-│
-└── 📄 README.md                 # Документация
+└── 📁 server/                   # Серверная часть
+    ├── 📄 main.py               # Точка входа сервера
+    ├── 📄 server_config.py      # Конфигурация сервера
+    ├── 📄 server_auth.py        # Аутентификация сервера
+    ├── 📄 websocket_manager.py  # Менеджер WebSocket
+    ├── 📄 dependencies.py       # Зависимости
+    │
+    ├── 📁 database/             # Работа с БД
+    │   ├── 📄 db.py             # Инициализация БД
+    │   ├── 📄 user_model.py     # Модель пользователя
+    │   ├── 📄 message_model.py  # Модель сообщения
+    │   └── 📄 models.py         # ⭐ ВОТ ОН! Основные модели
+    │
+    ├── 📁 routers/              # Маршруты API
+    │   ├── 📄 auth.py           # Аутентификация
+    │   ├── 📄 messages.py       # Работа с сообщениями
+    │   ├── 📄 users.py          # Управление пользователями
+    │   └── 📄 admin.py          # Административные функции
+    │
+    └── 📁 schemas/              # Pydantic схемы
+        ├── 📄 user.py           # Схемы пользователей
+        └── 📄 message.py        # Схемы сообщений
+
 ```
 
 ---
