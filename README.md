@@ -473,82 +473,55 @@ python main.py
 ## 📁 Структура исходного кода локального мессенджера 
 
 ```
-📦 local-messenger/
+📦 local_messenger/
+├── 📁 client/                    # Клиентская часть
+│   ├── 📄 main.py               # Точка входа
+│   ├── 📄 config.py             # Конфигурация
+│   ├── 📄 server_discovery.py   # Поиск серверов
+│   ├── 📄 server_manager.py     # Управление серверами
+│   ├── 📄 auth_manager.py       # Управление аутентификацией
+│   │
+│   ├── 📁 ui/                   # Пользовательский интерфейс
+│   │   ├── 📄 server_browser_dialog.py
+│   │   ├── 📄 server_create_dialog.py
+│   │   ├── 📄 login_dialog.py
+│   │   ├── 📄 main_window.py
+│   │   └── 📄 chat_widget.py
+│   │
+│   ├── 📁 models/               # Модели данных клиента
+│   │   ├── 📄 message.py        # Модель сообщения
+│   │   ├── 📄 user.py           # Модель пользователя
+│   │   └── 📄 server_info.py    # Модель информации о сервере
+│   │
+│   └── 📁 network/              # Сетевой слой клиента
+│       ├── 📄 websocket_client.py
+│       ├── 📄 broadcast_client.py
+│       └── 📄 broadcast_server.py
 │
-├── 📁 client/                          # Клиентская часть
-│   ├── 📄 main.py                      # Точка входа клиента
-│   ├── 📄 config.py                    # Конфигурация (SERVER_HOST, SERVER_PORT)
-│   ├── 📄 discovery.py                 # Новый: обнаружение серверов
+├── 📁 server/                   # Серверная часть
+│   ├── 📄 main.py               # Точка входа сервера
+│   ├── 📄 server_config.py      # Конфигурация сервера
+│   ├── 📄 server_auth.py        # Аутентификация сервера
+│   ├── 📄 websocket_manager.py  # Менеджер WebSocket
+│   ├── 📄 dependencies.py       # Зависимости
 │   │
-│   ├── 📁 ui/                          # Пользовательский интерфейс
-│   │   ├── 📄 login_dialog.py          # Окно входа (обновлено)
-│   │   ├── 📄 server_discovery_dialog.py # Новый: диалог выбора сервера
-│   │   ├── 📄 main_window.py           # Главное окно
-│   │   └── 📄 chat_widget.py           # Виджет чата
+│   ├── 📁 database/             # Работа с БД
+│   │   ├── 📄 db.py             # Инициализация БД
+│   │   ├── 📄 user_model.py     # Модель пользователя
+│   │   ├── 📄 message_model.py  # Модель сообщения
+│   │   └── 📄 models.py         # ⭐ ВОТ ОН! Основные модели
 │   │
-│   ├── 📁 models/                      # Модели данных
-│   │   ├── 📄 message.py               # Модель сообщения
-│   │   ├── 📄 user.py                  # Модель пользователя
-│   │   └── 📄 server_info.py           # Новый: информация о сервере
+│   ├── 📁 routers/              # Маршруты API
+│   │   ├── 📄 auth.py           # Аутентификация
+│   │   ├── 📄 messages.py       # Работа с сообщениями
+│   │   ├── 📄 users.py          # Управление пользователями
+│   │   └── 📄 admin.py          # Административные функции
 │   │
-│   ├── 📁 network/                     # Сетевой слой
-│   │   ├── 📄 websocket_client.py      # WebSocket клиент
-│   │   ├── 📄 http_client.py           # HTTP клиент
-│   │   └── 📄 server_discovery_client.py # Новый: клиент для обнаружения серверов
-│   │
-│   └── 📁 utils/                       # Вспомогательные утилиты
-│       ├── 📄 network_scanner.py       # Новый: сканирование сети
-│       └── 📄 helpers.py               # Вспомогательные функции
+│   └── 📁 schemas/              # Pydantic схемы
+│       ├── 📄 user.py           # Схемы пользователей
+│       └── 📄 message.py        # Схемы сообщений
 │
-├── 📁 server/                          # Серверная часть
-│   ├── 📄 main.py                      # Точка входа сервера (обновлено)
-│   ├── 📄 config.py                    # Конфигурация сервера
-│   ├── 📄 server_broadcast.py          # Новый: широковещательное оповещение
-│   │
-│   ├── 📁 routers/                     # Маршруты API
-│   │   ├── 📄 auth.py                  # Аутентификация
-│   │   ├── 📄 messages.py              # Работа с сообщениями
-│   │   ├── 📄 users.py                 # Управление пользователями
-│   │   ├── 📄 admin.py                 # Административные функции
-│   │   └── 📄 discovery.py             # Новый: эндпоинты для обнаружения
-│   │
-│   ├── 📁 database/                    # Работа с БД
-│   │   ├── 📄 db.py                    # Инициализация БД
-│   │   ├── 📄 user_model.py            # Модель пользователя
-│   │   └── 📄 message_model.py         # Модель сообщения
-│   │
-│   ├── 📁 schemas/                     # Pydantic схемы
-│   │   ├── 📄 user.py                  # Схемы пользователей
-│   │   ├── 📄 message.py               # Схемы сообщений
-│   │   └── 📄 server_info.py           # Новый: схема информации о сервере
-│   │
-│   ├── 📁 services/                    # Сервисный слой
-│   │   ├── 📄 discovery_service.py     # Новый: сервис обнаружения
-│   │   └── 📄 broadcast_service.py     # Новый: сервис широковещания
-│   │
-│   └── 📁 network/                     # Сетевые утилиты сервера
-│       ├── 📄 websocket_manager.py     # Менеджер WebSocket соединений
-│       ├── 📄 server_discovery.py      # Новый: обнаружение сервера в сети
-│       └── 📄 network_utils.py         # Новый: сетевые утилиты
-│
-├── 📁 shared/                          # Общие файлы для клиента и сервера
-│   ├── 📄 constants.py                 # Общие константы
-│   ├── 📄 protocols.py                 # Протоколы обмена данными
-│   └── 📄 server_info.py               # Структура информации о сервере
-│
-├── 📁 installer/                       # Установочные файлы
-│   ├── 📄 server_installer.py          # Новый: установщик сервера
-│   ├── 📄 client_installer.py          # Установщик клиента
-│   └── 📄 requirements.txt             # Зависимости
-│
-├── 📁 docs/                            # Документация
-│   ├── 📄 server_setup_guide.md        # Новый: руководство по настройке сервера
-│   └── 📄 user_manual.md               # Руководство пользователя
-│
-├── 📄 .env.example                     # Пример переменных окружения
-├── 📄 docker-compose.yml               # Docker Compose для развертывания
-├── 📄 README.md                        # Основной README
-└── 📄 start.py                         # Универсальный запускатель
+└── 📄 README.md                 # Документация
 ```
 
 ---
