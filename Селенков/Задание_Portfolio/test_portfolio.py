@@ -13,12 +13,13 @@ import shutil
 import sqlite3
 from datetime import datetime, timedelta
 import pytest
+import portfolio
 
 # Добавляем текущую директорию в путь для импорта
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Импортируем модули приложения
-import portfolio
+
 
 
 # ============================================================================
