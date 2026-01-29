@@ -3,6 +3,7 @@ import os
 import sys
 import sqlite3
 import datetime
+import re
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog, scrolledtext
 import matplotlib.pyplot as plt
@@ -10,8 +11,10 @@ import matplotlib
 from openpyxl import Workbook
 from openpyxl.drawing.image import Image as XLImage
 from docx import Document
-from docx.shared import Inches, Pt
+from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 import markdown
 import webbrowser
 
@@ -1157,7 +1160,7 @@ class PortfolioApp:
             messagebox.showerror("Ошибка", f"Не удалось экспортировать в Excel: {str(e)}")
 
     def export_to_word(self):
-        """Экспортирует все записи в Word"""
+        """Экспортирует все записи в Word с поддержкой Markdown"""
         try:
             records = self.db.get_all_records()
             if not records:
@@ -1179,12 +1182,12 @@ class PortfolioApp:
 
             doc.add_paragraph(f'Дата экспорта: {datetime.datetime.now().strftime("%d.%m.%Y %H:%M")}')
             doc.add_paragraph(f'Всего записей: {len(records)}')
-            doc.add_paragraph()
+            doc.add_page_break()
 
             # Добавляем записи
             for record in records:
                 # Заголовок записи
-                doc.add_heading(record['title'], level=2)
+                doc.add_heading(record['title'], level=1)
 
                 # Таблица с метаданными
                 table = doc.add_table(rows=4, cols=2)
@@ -1199,28 +1202,21 @@ class PortfolioApp:
                 table.cell(3, 0).text = 'Соавторы:'
                 table.cell(3, 1).text = record.get('coauthors', '') or 'Отсутствуют'
 
-                # Добавляем содержимое записи
                 doc.add_paragraph()
-                doc.add_heading('Содержание:', level=3)
+                doc.add_heading('Описание:', level=2)
 
                 # Получаем абсолютный путь к файлу
                 file_path = record.get('abs_file_path')
 
-                # Читаем содержимое файла
+                # Читаем и обрабатываем Markdown содержимое
                 if file_path and os.path.exists(file_path):
                     try:
                         with open(file_path, 'r', encoding='utf-8') as f:
                             content = f.read()
 
-                        # Добавляем содержимое как обычный текст
-                        paragraphs = content.split('\n\n')
-                        for para in paragraphs:
-                            if para.strip():
-                                lines = para.split('\n')
-                                for line in lines:
-                                    line = line.strip()
-                                    if line and not line.startswith('```'):
-                                        doc.add_paragraph(line)
+                        # Обрабатываем Markdown (без сложных гиперссылок)
+                        self._process_markdown_simple(doc, content)
+
                     except Exception as e:
                         doc.add_paragraph(f"Ошибка при чтении файла: {str(e)}")
                 else:
@@ -1243,6 +1239,216 @@ class PortfolioApp:
 
         except Exception as e:
             messagebox.showerror("Ошибка", f"Не удалось экспортировать в Word: {str(e)}")
+
+    def _process_markdown_simple(self, doc, content):
+        """Упрощенная обработка Markdown без сложных гиперссылок"""
+        lines = content.split('\n')
+        in_code_block = False
+        in_list = False
+        list_type = None  # 'bullet' или 'number'
+        list_number = 1
+
+        for line in lines:
+            line = line.rstrip()
+
+            # Обработка блоков кода
+            if line.strip().startswith('```'):
+                in_code_block = not in_code_block
+                continue
+
+            if in_code_block:
+                # Для блоков кода просто добавляем текст моноширинным шрифтом
+                para = doc.add_paragraph()
+                run = para.add_run(line)
+                run.font.name = 'Consolas'
+                run.font.size = Pt(10)
+                continue
+
+            # Пустая строка
+            if not line.strip():
+                in_list = False
+                list_number = 1
+                continue
+
+            # Заголовки
+            if line.startswith('# '):
+                doc.add_heading(line[2:].strip(), level=1)
+                in_list = False
+                list_number = 1
+            elif line.startswith('## '):
+                doc.add_heading(line[3:].strip(), level=2)
+                in_list = False
+                list_number = 1
+            elif line.startswith('### '):
+                doc.add_heading(line[4:].strip(), level=3)
+                in_list = False
+                list_number = 1
+            elif line.startswith('#### '):
+                doc.add_heading(line[5:].strip(), level=4)
+                in_list = False
+                list_number = 1
+            elif line.startswith('##### '):
+                doc.add_heading(line[6:].strip(), level=5)
+                in_list = False
+                list_number = 1
+            elif line.startswith('###### '):
+                doc.add_heading(line[7:].strip(), level=6)
+                in_list = False
+                list_number = 1
+
+            # Цитаты
+            elif line.startswith('> '):
+                quote_text = line[2:].strip()
+                para = doc.add_paragraph(style='Intense Quote')
+                self._add_simple_text(para, quote_text)
+                in_list = False
+                list_number = 1
+
+            # Маркированные списки
+            elif line.startswith('- ') or line.startswith('* ') or line.startswith('+ '):
+                if not in_list or list_type != 'bullet':
+                    list_type = 'bullet'
+                    in_list = True
+
+                bullet_text = line[2:].strip()
+                para = doc.add_paragraph()
+                para.paragraph_format.left_indent = Inches(0.25)
+                para.add_run('• ').bold = True
+                self._add_simple_text(para, bullet_text)
+
+            # Нумерованные списки
+            elif re.match(r'^\d+\.\s', line):
+                if not in_list or list_type != 'number':
+                    list_type = 'number'
+                    list_number = 1
+                    in_list = True
+
+                # Извлекаем номер и текст
+                match = re.match(r'^(\d+)\.\s+(.*)', line)
+                if match:
+                    _, list_text = match.groups()
+                    para = doc.add_paragraph()
+                    para.paragraph_format.left_indent = Inches(0.25)
+                    para.add_run(f"{list_number}. ").bold = True
+                    self._add_simple_text(para, list_text)
+                    list_number += 1
+
+            # Обычный текст
+            else:
+                in_list = False
+                list_number = 1
+                para = doc.add_paragraph()
+                self._add_simple_text(para, line)
+
+    def _add_simple_text(self, paragraph, text):
+        """Добавляет текст с простой обработкой форматирования"""
+        if not text:
+            return
+
+        # Сначала обрабатываем ссылки
+        parts = []
+        last_pos = 0
+
+        # Находим все ссылки
+        for match in re.finditer(r'\[([^\]]+)\]\(([^)]+)\)', text):
+            # Текст перед ссылкой
+            if match.start() > last_pos:
+                parts.append(('text', text[last_pos:match.start()]))
+
+            # Ссылка
+            link_text = match.group(1)
+            link_url = match.group(2)
+            parts.append(('link', (link_text, link_url)))
+
+            last_pos = match.end()
+
+        # Остаток текста
+        if last_pos < len(text):
+            parts.append(('text', text[last_pos:]))
+
+        # Если не было ссылок
+        if not parts:
+            parts.append(('text', text))
+
+        # Добавляем части
+        for part_type, content in parts:
+            if part_type == 'text':
+                # Обрабатываем форматирование в тексте
+                self._add_formatted_text_simple(paragraph, content)
+            elif part_type == 'link':
+                link_text, link_url = content
+                # Добавляем ссылку как текст с подсказкой
+                run = paragraph.add_run(link_text)
+                run.font.color.rgb = RGBColor(0, 0, 255)  # Синий
+                run.underline = True
+                # Добавляем URL в скобках
+                run = paragraph.add_run(f" ({link_url})")
+                run.font.color.rgb = RGBColor(128, 128, 128)  # Серый
+                run.font.size = Pt(10)
+
+    def _add_formatted_text_simple(self, paragraph, text):
+        """Обрабатывает простое форматирование текста"""
+        if not text:
+            return
+
+        # Обрабатываем жирный текст
+        parts = []
+        last_pos = 0
+
+        # Жирный текст: **текст** или __текст__
+        for match in re.finditer(r'(\*\*|__)(.*?)\1', text):
+            if match.start() > last_pos:
+                parts.append(('normal', text[last_pos:match.start()]))
+
+            bold_text = match.group(2)
+            parts.append(('bold', bold_text))
+
+            last_pos = match.end()
+
+        if last_pos < len(text):
+            parts.append(('normal', text[last_pos:]))
+
+        if not parts:
+            parts.append(('normal', text))
+
+        # Для каждой части обрабатываем курсив
+        for part_type, content in parts:
+            if part_type == 'normal':
+                self._add_text_with_italic_simple(paragraph, content, bold=False)
+            elif part_type == 'bold':
+                self._add_text_with_italic_simple(paragraph, content, bold=True)
+
+    def _add_text_with_italic_simple(self, paragraph, text, bold=False):
+        """Обрабатывает курсив в тексте"""
+        if not text:
+            return
+
+        parts = []
+        last_pos = 0
+
+        # Курсив: *текст* или _текст_
+        for match in re.finditer(r'(\*|_)(.*?)\1', text):
+            if match.start() > last_pos:
+                parts.append(('normal', text[last_pos:match.start()]))
+
+            italic_text = match.group(2)
+            parts.append(('italic', italic_text))
+
+            last_pos = match.end()
+
+        if last_pos < len(text):
+            parts.append(('normal', text[last_pos:]))
+
+        if not parts:
+            parts.append(('normal', text))
+
+        # Добавляем все части
+        for part_type, content in parts:
+            run = paragraph.add_run(content)
+            if bold:
+                run.bold = True
+            if part_type == 'italic':
+                run.italic = True
 
 
 def main():
