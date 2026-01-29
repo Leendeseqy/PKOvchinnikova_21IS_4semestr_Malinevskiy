@@ -1,0 +1,3 @@
+# Test'; DROP TABLE records; --
+
+Описание записи...
